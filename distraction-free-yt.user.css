@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           Distraction-free YouTube
-@version        1.0.0
+@version        1.1.0
 @description    Makes it harder for Google to waste your time.
 @updateURL      https://github.com/sleepycrow/distraction-free-yt/refs/heads/master/distraction-free-yt.user.css
 @preprocessor   less
@@ -11,12 +11,13 @@
 @homepageURL    https://github.com/sleepycrow/distraction-free-yt
 @supportURL     https://github.com/sleepycrow/distraction-free-yt/issues
 ==/UserStyle== */
-
 @-moz-document domain("youtube.com") {
-    
+
+    /* recommended videos */
     ytd-watch-next-secondary-results-renderer {
         position: relative;
-        
+
+        /* overlay */
         &::before {
             content: "🛂 Do you really need to be distracted right now?";
 
@@ -25,7 +26,7 @@
             background-color: var(--yt-spec-base-background);
             border-radius: 6px;
             padding: 1rem 0.5rem;
-            
+
             position: absolute;
             top: 0;
             left: 0;
@@ -36,45 +37,47 @@
             transition: opacity 7.5s;
             pointer-events: none;
         }
-        
+
         &:hover::before {
             opacity: 0;
         }
-    }
-    
-    ytd-reel-shelf-renderer {
-        display: none !important;
-    }
 
-    .ytp-videowall-still {
-        display: none !important;
-    }
-
-    ytd-compact-video-renderer, yt-lockup-view-model {
-        #video-title,
-        .yt-lockup-metadata-view-model-wiz__title,
-        yt-image.ytd-thumbnail,
-        .yt-thumbnail-view-model__image {
-            opacity: 0;
-            transition: opacity 0.2s;
+        /* items */
+        ytd-reel-shelf-renderer {
+            display: none !important;
         }
 
-        &:hover {
+        ytd-compact-video-renderer,
+        yt-lockup-view-model {
             #video-title,
             .yt-lockup-metadata-view-model-wiz__title,
             yt-image.ytd-thumbnail,
             .yt-thumbnail-view-model__image {
-                opacity: 1;
+                opacity: 0;
+                transition: opacity 0.2s;
             }
-        }
-        
-        ytd-thumbnail-overlay-time-status-renderer {
-            z-index: 99;
-        }
-        
-        ytd-thumbnail-overlay-now-playing-renderer {
-            display: none !important;
+
+            &:hover {
+                #video-title,
+                .yt-lockup-metadata-view-model-wiz__title,
+                yt-image.ytd-thumbnail,
+                .yt-thumbnail-view-model__image {
+                    opacity: 1;
+                }
+            }
+
+            ytd-thumbnail-overlay-time-status-renderer {
+                z-index: 99;
+            }
+
+            ytd-thumbnail-overlay-now-playing-renderer {
+                display: none !important;
+            }
         }
     }
 
+    /* post-video recommendations */
+    .ytp-videowall-still {
+        display: none !important;
+    }
 }
